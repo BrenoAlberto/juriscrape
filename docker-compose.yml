@@ -1,0 +1,54 @@
+version: "3"
+
+services:
+  crawler:
+    container_name: tribunal-de-justica-crawlers
+    build:
+      context: ./tribunal-de-justica-crawlers/
+      args:
+        - NODE_ENV=production
+    environment:
+      - TJ_API_URL=http://api:3000
+    ports:
+      - '3008:3008'
+    command: npm start
+    networks:
+      - webnet
+
+  api:
+    container_name: tribunal-de-justica-api
+    build:
+      context: ./tribunal-de-justica-api/
+      args:
+        - NODE_ENV=production
+    environment:
+      - MONGO_URL=mongodb://admin:admin@mongo:27018
+      - TJ_CRAWLER_URL=http://crawler:3008
+    ports:
+      - '3000:3000'
+    command: npm start
+    depends_on:
+      - mongo
+      - crawler
+    networks:
+      - webnet
+
+  mongo:
+    image: mongo:4.4
+    command: mongod --port 27018
+    ports:
+      - '27018:27018'
+    container_name: tribunal-de-justica-mongo
+    environment:
+        - MONGO_INITDB_ROOT_USERNAME=admin
+        - MONGO_INITDB_ROOT_PASSWORD=admin
+    volumes:
+      - ./.mongo_data:/data/db
+    networks:
+      - webnet
+
+networks:
+  webnet:
+
+volumes:
+  mongo_data:
