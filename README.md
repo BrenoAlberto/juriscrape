@@ -2,6 +2,14 @@
 
 Os dois serviços são eficientes e personalizáveis, projetados para manipular um grande volume de processos judiciais. Possuem capacidade robusta de gerenciar e lidar com múltiplas solicitações de processos simultaneamente sem comprometer a velocidade ou o uso de recursos.
 
+## Serviços
+
+### API
+https://github.com/BrenoAlberto/tribunal-de-justica-api
+
+### Crawlers
+https://github.com/BrenoAlberto/tribunal-de-justica-crawlers
+
 ## Instalação e Execução
 
 0. Clone os repositórios:
