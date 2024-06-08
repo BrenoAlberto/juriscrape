@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tj-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tj-api
+  template:
+    metadata:
+      labels:
+        app: tj-api
+    spec:
+      containers:
+      - name: tj-api
+        image: brenoalberto/tj-api
+        env:
+        - name: MONGO_URL
+          value: "mongodb://tj-mongo-srv:27017/tj"
+        - name: TJ_CRAWLER_URL
+          value: "http://ingress-nginx-controller.ingress-nginx.svc.cluster.local"
+        command: ["npm", "start"]
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tj-api-srv
+spec:
+  selector:
+    app: tj-api
+  ports:
+  - name: tj-api
+    protocol: TCP
+    port: 3000
+    targetPort: 3000
