@@ -17,7 +17,7 @@ spec:
         image: brenoalberto/tj-crawlers
         env:
         - name: TJ_API_URL
-          value: "http://ingress-nginx-controller.ingress-nginx.svc.cluster.local"
+          value: "http://tj-api-srv:3000"
         ports:
         - containerPort: 3008
         command: ["npm", "start"]

@@ -19,7 +19,7 @@ spec:
         - name: MONGO_URL
           value: "mongodb://tj-mongo-srv:27017/tj"
         - name: TJ_CRAWLER_URL
-          value: "http://ingress-nginx-controller.ingress-nginx.svc.cluster.local"
+          value: "http://tj-crawlers-srv:3008"
         command: ["npm", "start"]
 ---
 apiVersion: v1
