@@ -107,3 +107,11 @@ curl --location 'localhost:3000/get-court-cases' \
     ]
 }'
 ```
+
+### TODO
+
+- [ ] Review the whole project and map necessary improvements.
+- [ ] Better logging strategy.
+- [ ] Retry strategy for failed requests.
+- [ ] Persist the data. Right now the data is stored in the ephemeral k8s pod.
+- [ ] Remove custom broker and use a more robust solution.
