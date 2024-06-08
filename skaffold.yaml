@@ -1,0 +1,25 @@
+apiVersion: skaffold/v4beta3
+kind: Config
+manifests:
+  rawYaml:
+    - ./tribunal-de-justica-infra/k8s/*
+build:
+  local:
+    push: false
+  artifacts:
+    - image: brenoalberto/tj-crawlers
+      context: tribunal-de-justica-crawlers
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - dest: .
+            src: 'src/**/*.ts'
+    - image: brenoalberto/tj-api
+      context: tribunal-de-justica-api
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - dest: .
+            src: 'src/**/*.ts'
