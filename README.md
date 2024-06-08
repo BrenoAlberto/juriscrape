@@ -1,8 +1,8 @@
-# TJ API e Crawler
+# TJ API and Crawler
 
-Os dois serviços são eficientes e personalizáveis, projetados para manipular um grande volume de processos judiciais. Possuem capacidade robusta de gerenciar e lidar com múltiplas solicitações de processos simultaneamente sem comprometer a velocidade ou o uso de recursos.
+The two services are efficient and customizable, designed to handle a large volume of court cases. They have a robust capacity to manage and handle multiple simultaneous requests for cases without compromising speed or resource usage.
 
-## Serviços
+## Services
 
 ### API
 https://github.com/BrenoAlberto/tribunal-de-justica-api
@@ -10,24 +10,24 @@ https://github.com/BrenoAlberto/tribunal-de-justica-api
 ### Crawlers
 https://github.com/BrenoAlberto/tribunal-de-justica-crawlers
 
-## Instalação e Execução
+## Installation and Execution
 
-0. Clone os repositórios:
+0. Clone the repositories:
 
 ```shell
-    gh repo clone BrenoAlberto/tribunal-de-justica-api
-    gh repo clone BrenoAlberto/tribunal-de-justica-crawlers
+gh repo clone BrenoAlberto/tribunal-de-justica-api
+gh repo clone BrenoAlberto/tribunal-de-justica-crawlers
 ```
 
-Para executar o projeto, você pode utilizar o Docker:
+To run the project, you can use Docker:
 
 ```shell
 docker compose up
 ```
 
-Se não possuir Docker, siga os passos abaixo:
+If you don't have Docker, follow the steps below:
 
-1. Entre no diretório `tribunal-de-justica-crawlers` e instale as dependências:
+1. Go to the `tribunal-de-justica-crawlers` directory and install the dependencies:
 
 ```shell
 cd tribunal-de-justica-crawlers
@@ -36,7 +36,7 @@ npm run build
 npm run start
 ```
 
-2. Repita o processo no diretório `tribunal-de-justica-api`:
+2. Repeat the process in the `tribunal-de-justica-api` directory:
 
 ```shell
 cd tribunal-de-justica-api
@@ -45,25 +45,25 @@ npm run build
 npm run start
 ```
 
-3. Lembre-se de alterar a URL do MongoDB no arquivo `.env` do projeto `tribunal-de-justica-api`.
+3. Remember to change the MongoDB URL in the `.env` file of the `tribunal-de-justica-api` project.
 
-## Componentes Notáveis
+## Notable Components
 
 ### PageManager & PreloadedFirstDegreePageManager
 
-Estes componentes pré-carregam determinadas páginas com contextos isolados para uso do crawler. Você pode configurar o número de páginas a serem pré-carregadas de acordo com as necessidades do seu projeto.
+These components preload certain pages with isolated contexts for crawler use. You can configure the number of pages to be preloaded according to the needs of your project.
 
 ### CaseProcessor
 
-Esta é uma fila de processamento em segundo plano que lida constantemente com um número pré-determinado de crawlers simultaneamente. Devido à limitação de informações sobre os rate limiting dos Tribunais de Justiça, defini como padrão o número de 10 processos simultâneos. Este valor pode ser ajustado. A cada 2 segundos, uma rotina é executada para verificar se há novos dados disponíveis para serem adicionados ao banco de dados.
+This is a background processing queue that constantly handles a predetermined number of simultaneous crawlers. Due to the limited information about the rate limiting of the Courts of Justice, I have set the default number to 10 simultaneous processes. This value can be adjusted. Every 2 seconds, a routine runs to check for new data to be added to the database.
 
-Essas variáveis podem ser customizadas no arquivo `tribunal-de-justica-crawlers/src/setup.ts`.
+These variables can be customized in the `tribunal-de-justica-crawlers/src/setup.ts` file.
 
-## Uso da API
+## API Usage
 
-### Solicitação de Processos
+### Requesting Cases
 
-Para usar a API, você pode fazer uma requisição POST para o endpoint `/fetch-court-cases`. Esta requisição retorna uma lista com os números dos processos e seus respectivos status de rastreamento:
+To use the API, you can make a POST request to the `/fetch-court-cases` endpoint. This request returns a list of case numbers and their respective tracking statuses:
 
 ```shell
 curl --location 'localhost:3000/fetch-court-cases' \
@@ -77,9 +77,9 @@ curl --location 'localhost:3000/fetch-court-cases' \
 }'
 ```
 
-### Resposta da API
+### API Response
 
-A API retornará um array JSON com o número do processo e o respectivo status de rastreamento para cada processo:
+The API will return a JSON array with the case number and the respective tracking status for each case:
 
 ```json
 [
@@ -95,15 +95,13 @@ A API retornará um array JSON com o número do processo e o respectivo status d
 ]
 ```
 
-Quando os processos estiverem com status "available", você pode buscar os dados de processos específicos usando o endpoint `/get-court-cases`:
+When the cases have the status "available", you can fetch the data of specific cases using the `/get-court-cases` endpoint:
 
 ```shell
 curl --location 'localhost:3000/get-court-cases' \
 --header 'Content-Type: application/json' \
 --data '{
-   
-
- "caseNumbers": [
+    "caseNumbers": [
         "0070337-91.2008.8.06.0001",
         "0710802-55.2018.8.02.0001"
     ]
