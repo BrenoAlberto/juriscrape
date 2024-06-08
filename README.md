@@ -115,3 +115,4 @@ curl --location 'localhost:3000/get-court-cases' \
 - [ ] Retry strategy for failed requests.
 - [ ] Persist the data. Right now the data is stored in the ephemeral k8s pod.
 - [ ] Remove custom broker and use a more robust solution.
+- [ ] Improve README.md.
