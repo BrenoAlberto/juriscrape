@@ -20,7 +20,7 @@ spec:
           value: "http://tj-api-srv:3000"
         ports:
         - containerPort: 3008
-        command: ["npm", "start"]
+        command: ["npm", "run", "dev"]
 ---
 apiVersion: v1
 kind: Service

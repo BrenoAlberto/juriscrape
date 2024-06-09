@@ -20,7 +20,7 @@ spec:
           value: "mongodb://tj-mongo-srv:27017/tj"
         - name: TJ_CRAWLER_URL
           value: "http://tj-crawlers-srv:3008"
-        command: ["npm", "start"]
+        command: ["npm", "run", "dev"]
 ---
 apiVersion: v1
 kind: Service
