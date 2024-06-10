@@ -2,7 +2,7 @@ apiVersion: skaffold/v4beta3
 kind: Config
 manifests:
   rawYaml:
-    - ./tribunal-de-justica-infra/k8s/*
+    - ./juriscrape-infra/k8s/*
 build:
   local:
     push: false
