@@ -15,7 +15,7 @@ build:
         manual:
           - dest: .
             src: 'src/**/*.ts'
-    - image: brenoalberto/tj-api
+    - image: brenoalberto/juriscrape-api
       context: juriscrape-api
       docker:
         dockerfile: Dockerfile

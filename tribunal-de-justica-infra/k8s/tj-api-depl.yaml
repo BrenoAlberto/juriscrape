@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tj-api
+  name: juriscrape-api
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: tj-api
+      app: juriscrape-api
   template:
     metadata:
       labels:
-        app: tj-api
+        app: juriscrape-api
     spec:
       containers:
-      - name: tj-api
-        image: brenoalberto/tj-api
+      - name: juriscrape-api
+        image: brenoalberto/juriscrape-api
         env:
         - name: MONGO_URL
           value: "mongodb://tj-mongo-srv:27017/tj"
@@ -25,12 +25,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: tj-api-srv
+  name: juriscrape-api-srv
 spec:
   selector:
-    app: tj-api
+    app: juriscrape-api
   ports:
-  - name: tj-api
+  - name: juriscrape-api
     protocol: TCP
     port: 3000
     targetPort: 3000

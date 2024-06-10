@@ -14,21 +14,21 @@ spec:
             pathType: ImplementationSpecific
             backend:
               service:
-                name: tj-api-srv
+                name: juriscrape-api-srv
                 port:
                   number: 3000
           - path: /insert-court-cases
             pathType: ImplementationSpecific
             backend:
               service:
-                name: tj-api-srv
+                name: juriscrape-api-srv
                 port:
                   number: 3000
           - path: /get-court-cases
             pathType: ImplementationSpecific
             backend:
               service:
-                name: tj-api-srv
+                name: juriscrape-api-srv
                 port:
                   number: 3000
           - path: /crawl-court-cases
