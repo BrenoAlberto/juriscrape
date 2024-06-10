@@ -5,7 +5,7 @@ The two services are efficient and customizable, designed to handle a large volu
 ## Services
 
 ### API
-https://github.com/BrenoAlberto/tribunal-de-justica-api
+https://github.com/BrenoAlberto/juriscrape-api
 
 ### Crawlers
 https://github.com/BrenoAlberto/tribunal-de-justica-crawlers
@@ -15,7 +15,7 @@ https://github.com/BrenoAlberto/tribunal-de-justica-crawlers
 0. Clone the repositories:
 
 ```shell
-gh repo clone BrenoAlberto/tribunal-de-justica-api
+gh repo clone BrenoAlberto/juriscrape-api
 gh repo clone BrenoAlberto/tribunal-de-justica-crawlers
 ```
 
@@ -36,16 +36,16 @@ npm run build
 npm run start
 ```
 
-2. Repeat the process in the `tribunal-de-justica-api` directory:
+2. Repeat the process in the `juriscrape-api` directory:
 
 ```shell
-cd tribunal-de-justica-api
+cd juriscrape-api
 npm install
 npm run build
 npm run start
 ```
 
-3. Remember to change the MongoDB URL in the `.env` file of the `tribunal-de-justica-api` project.
+3. Remember to change the MongoDB URL in the `.env` file of the `juriscrape-api` project.
 
 ## Notable Components
 
