@@ -3,5 +3,5 @@
     "source.fixAll.eslint": "explicit"
   },
   "eslint.format.enable": true,
-  "eslint.workingDirectories": ["juriscrape-api", "tribunal-de-justica-crawlers"]
+  "eslint.workingDirectories": ["juriscrape-api", "juriscrape-crawlers"]
 }

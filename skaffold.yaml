@@ -7,8 +7,8 @@ build:
   local:
     push: false
   artifacts:
-    - image: brenoalberto/tj-crawlers
-      context: tribunal-de-justica-crawlers
+    - image: brenoalberto/juriscrape-crawlers
+      context: juriscrape-crawlers
       docker:
         dockerfile: Dockerfile
       sync:

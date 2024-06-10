@@ -35,6 +35,6 @@ spec:
             pathType: ImplementationSpecific
             backend:
               service:
-                name: tj-crawlers-srv
+                name: juriscrape-crawlers-srv
                 port:
                   number: 3008

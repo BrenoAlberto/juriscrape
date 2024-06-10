@@ -1,28 +1,28 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tj-mongo-depl
+  name: juriscrape-mongo-depl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: tj-mongo
+      app: juriscrape-mongo
   template:
     metadata:
       labels:
-        app: tj-mongo
+        app: juriscrape-mongo
     spec:
       containers:
-        - name: tj-mongo
+        - name: juriscrape-mongo
           image: mongo
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: tj-mongo-srv
+  name: juriscrape-mongo-srv
 spec:
   selector:
-    app: tj-mongo
+    app: juriscrape-mongo
   ports:
     - name: db
       protocol: TCP
@@ -32,7 +32,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: tj-mongo-dev-srv
+  name: juriscrape-mongo-dev-srv
 spec:
   type: NodePort
   ports:
@@ -40,4 +40,4 @@ spec:
     targetPort: 27017
     nodePort: 32017
   selector:
-    app: tj-mongo
+    app: juriscrape-mongo

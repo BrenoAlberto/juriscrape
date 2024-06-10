@@ -8,7 +8,7 @@ The two services are efficient and customizable, designed to handle a large volu
 https://github.com/BrenoAlberto/juriscrape-api
 
 ### Crawlers
-https://github.com/BrenoAlberto/tribunal-de-justica-crawlers
+https://github.com/BrenoAlberto/juriscrape-crawlers
 
 ## Installation and Execution
 
@@ -16,7 +16,7 @@ https://github.com/BrenoAlberto/tribunal-de-justica-crawlers
 
 ```shell
 gh repo clone BrenoAlberto/juriscrape-api
-gh repo clone BrenoAlberto/tribunal-de-justica-crawlers
+gh repo clone BrenoAlberto/juriscrape-crawlers
 ```
 
 To run the project, you can use Docker:
@@ -27,10 +27,10 @@ docker compose up
 
 If you don't have Docker, follow the steps below:
 
-1. Go to the `tribunal-de-justica-crawlers` directory and install the dependencies:
+1. Go to the `juriscrape-crawlers` directory and install the dependencies:
 
 ```shell
-cd tribunal-de-justica-crawlers
+cd juriscrape-crawlers
 npm install
 npm run build
 npm run start
@@ -57,7 +57,7 @@ These components preload certain pages with isolated contexts for crawler use. Y
 
 This is a background processing queue that constantly handles a predetermined number of simultaneous crawlers. Due to the limited information about the rate limiting of the Courts of Justice, I have set the default number to 10 simultaneous processes. This value can be adjusted. Every 2 seconds, a routine runs to check for new data to be added to the database.
 
-These variables can be customized in the `tribunal-de-justica-crawlers/src/setup.ts` file.
+These variables can be customized in the `juriscrape-crawlers/src/setup.ts` file.
 
 ## API Usage
 
