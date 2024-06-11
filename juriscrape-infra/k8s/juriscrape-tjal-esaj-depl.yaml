@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: juriscrape-crawlers
+  name: juriscrape-tjal-esaj
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: juriscrape-crawlers
+      app: juriscrape-tjal-esaj
   template:
     metadata:
       labels:
-        app: juriscrape-crawlers
+        app: juriscrape-tjal-esaj
     spec:
       containers:
-      - name: juriscrape-crawlers
-        image: brenoalberto/juriscrape-crawlers
+      - name: juriscrape-tjal-esaj
+        image: brenoalberto/juriscrape-tjal-esaj
         env:
         - name: TJ_API_URL
           value: "http://juriscrape-api-srv:3000"
@@ -25,12 +25,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: juriscrape-crawlers-srv
+  name: juriscrape-tjal-esaj-srv
 spec:
   ports:
-  - name: juriscrape-crawlers
+  - name: juriscrape-tjal-esaj
     protocol: TCP
     port: 3008
     targetPort: 3008
   selector:
-    app: juriscrape-crawlers
+    app: juriscrape-tjal-esaj

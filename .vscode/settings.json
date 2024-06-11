@@ -3,5 +3,9 @@
     "source.fixAll.eslint": "explicit"
   },
   "eslint.format.enable": true,
-  "eslint.workingDirectories": ["juriscrape-api", "juriscrape-crawlers"]
+  "eslint.workingDirectories": [
+    "juriscrape-api",
+    "juriscrape-tjal-esaj",
+    "juriscrape-tjce-esaj",
+  ]
 }

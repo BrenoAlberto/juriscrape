@@ -18,8 +18,12 @@ spec:
         env:
         - name: MONGO_URL
           value: "mongodb://juriscrape-mongo-srv:27017/juriscrape"
-        - name: TJ_CRAWLER_URL
-          value: "http://juriscrape-crawlers-srv:3008"
+        # - name: TJ_CRAWLER_URL
+        #   value: "http://juriscrape-crawlers-srv:3008"
+        - name: TJAL_ESAJ_URL
+          value: "http://juriscrape-tjal-esaj-srv:3008"
+        - name: TJCE_ESAJ_URL
+          value: "http://juriscrape-tjce-esaj-srv:3008"
         command: ["npm", "run", "dev"]
 ---
 apiVersion: v1

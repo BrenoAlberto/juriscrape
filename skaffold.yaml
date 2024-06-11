@@ -7,16 +7,24 @@ build:
   local:
     push: false
   artifacts:
-    - image: brenoalberto/juriscrape-crawlers
-      context: juriscrape-crawlers
+    - image: brenoalberto/juriscrape-api
+      context: juriscrape-api
       docker:
         dockerfile: Dockerfile
       sync:
         manual:
           - dest: .
             src: 'src/**/*.ts'
-    - image: brenoalberto/juriscrape-api
-      context: juriscrape-api
+    - image: brenoalberto/juriscrape-tjal-esaj
+      context: juriscrape-tjal-esaj
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - dest: .
+            src: 'src/**/*.ts'
+    - image: brenoalberto/juriscrape-tjce-esaj
+      context: juriscrape-tjce-esaj
       docker:
         dockerfile: Dockerfile
       sync:

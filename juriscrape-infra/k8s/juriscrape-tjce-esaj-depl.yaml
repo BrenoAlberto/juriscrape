@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: juriscrape-tjce-esaj
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: juriscrape-tjce-esaj
+  template:
+    metadata:
+      labels:
+        app: juriscrape-tjce-esaj
+    spec:
+      containers:
+      - name: juriscrape-tjce-esaj
+        image: brenoalberto/juriscrape-tjce-esaj
+        env:
+        - name: TJ_API_URL
+          value: "http://juriscrape-api-srv:3000"
+        ports:
+        - containerPort: 3008
+        command: ["npm", "run", "dev"]
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: juriscrape-tjce-esaj-srv
+spec:
+  ports:
+  - name: juriscrape-tjce-esaj
+    protocol: TCP
+    port: 3008
+    targetPort: 3008
+  selector:
+    app: juriscrape-tjce-esaj
