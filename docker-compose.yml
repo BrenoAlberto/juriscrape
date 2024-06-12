@@ -1,10 +1,8 @@
-version: "3"
-
 services:
-  crawler:
-    container_name: tribunal-de-justica-crawlers
+  tjal-esaj:
+    container_name: juriscrape-tjal-esaj
     build:
-      context: ./tribunal-de-justica-crawlers/
+      context: ./juriscrape-tjal-esaj/
       args:
         - NODE_ENV=production
     environment:
@@ -15,21 +13,37 @@ services:
     networks:
       - webnet
 
-  api:
-    container_name: tribunal-de-justica-api
+  tjce-esaj:
+    container_name: juriscrape-tjce-esaj
     build:
-      context: ./tribunal-de-justica-api/
+      context: ./juriscrape-tjce-esaj/
       args:
         - NODE_ENV=production
     environment:
-      - MONGO_URL=mongodb://admin:admin@mongo:27018
-      - TJ_CRAWLER_URL=http://crawler:3008
+      - TJ_API_URL=http://api:3000
+    ports:
+      - '3009:3009'
+    command: npm start
+    networks:
+      - webnet
+
+  api:
+    container_name: juriscrape-api
+    build:
+      context: ./juriscrape-api/
+      args:
+        - NODE_ENV=production
+    environment:
+      - MONGO_URL=mongodb://mongo:27018/juriscrape
+      - TJAL_ESAJ_URL=http://tjal-esaj:3008
+      - TJCE_ESAJ_URL=http://tjce-esaj:3009
     ports:
       - '3000:3000'
     command: npm start
     depends_on:
       - mongo
-      - crawler
+      - tjal-esaj
+      - tjce-esaj
     networks:
       - webnet
 
@@ -38,10 +52,7 @@ services:
     command: mongod --port 27018
     ports:
       - '27018:27018'
-    container_name: tribunal-de-justica-mongo
-    environment:
-        - MONGO_INITDB_ROOT_USERNAME=admin
-        - MONGO_INITDB_ROOT_PASSWORD=admin
+    container_name: juriscrape-mongo
     volumes:
       - ./.mongo_data:/data/db
     networks:
