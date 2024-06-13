@@ -1,4 +1,6 @@
-# TJ API and Crawler
+# THIS README IS VERY OUTDATED - will update soon
+
+## TJ API and Crawler
 
 The two services are efficient and customizable, designed to handle a large volume of court cases. They have a robust capacity to manage and handle multiple simultaneous requests for cases without compromising speed or resource usage.
 
