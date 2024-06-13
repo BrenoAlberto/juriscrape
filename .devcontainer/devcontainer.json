@@ -1,0 +1,31 @@
+{
+    "name": "My Dev Container",
+    "dockerComposeFile": "../docker-compose.yml",
+    "service": "dev",
+    "workspaceFolder": "/app",
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "terminal.integrated.defaultProfile.linux": "zsh",
+                "terminal.integrated.profiles.linux": {
+                    "zsh": {
+                        "path": "/bin/zsh"
+                    }
+                }
+            },
+            "extensions": [
+                "aykutsarac.jsoncrack-vscode",
+                "dbaeumer.vscode-eslint",
+                "eamodio.gitlens",
+                "esbenp.prettier-vscode",
+                "github.copilot",
+                "github.copilot-chat",
+                "kisstkondoros.vscode-codemetrics",
+                "orta.vscode-jest",
+                "pkief.material-icon-theme",
+                "rvest.vs-code-prettier-eslint",
+                "yzhang.markdown-all-in-one"
+            ]
+        }
+    }
+}

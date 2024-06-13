@@ -1,58 +1,29 @@
 services:
-  tjal-esaj:
-    container_name: juriscrape-tjal-esaj
+  dev:
     build:
-      context: ./juriscrape-tjal-esaj/
-      args:
-        - NODE_ENV=production
-    environment:
-      - TJ_API_URL=http://api:3000
-    ports:
-      - '3008:3008'
-    command: npm start
-    networks:
-      - webnet
-
-  tjce-esaj:
-    container_name: juriscrape-tjce-esaj
-    build:
-      context: ./juriscrape-tjce-esaj/
-      args:
-        - NODE_ENV=production
-    environment:
-      - TJ_API_URL=http://api:3000
-    ports:
-      - '3009:3009'
-    command: npm start
-    networks:
-      - webnet
-
-  api:
-    container_name: juriscrape-api
-    build:
-      context: ./juriscrape-api/
-      args:
-        - NODE_ENV=production
+      context: ./
+      dockerfile: Dockerfile
     environment:
       - MONGO_URL=mongodb://mongo:27018/juriscrape
-      - TJAL_ESAJ_URL=http://tjal-esaj:3008
-      - TJCE_ESAJ_URL=http://tjce-esaj:3009
-    ports:
-      - '3000:3000'
-    command: npm start
-    depends_on:
-      - mongo
-      - tjal-esaj
-      - tjce-esaj
+      - TJ_API_URL=http://dev:3000
+      - TJAL_ESAJ_URL=http://dev:3008
+      - TJCE_ESAJ_URL=http://dev:3009
+    volumes:
+      - /tmp:/tmp:rw
+      - ~/.zsh_history:/root/.zsh_history:rw
+      - ./:/app/:rw
     networks:
       - webnet
+    depends_on:
+      - mongo
+    tty: true
 
   mongo:
     image: mongo:4.4
     command: mongod --port 27018
     ports:
       - '27018:27018'
-    container_name: juriscrape-mongo
+    container_name: juriscrape-mongo-dev
     volumes:
       - ./.mongo_data:/data/db
     networks:
@@ -62,4 +33,4 @@ networks:
   webnet:
 
 volumes:
-  mongo_data:
+  .mongo_data:
