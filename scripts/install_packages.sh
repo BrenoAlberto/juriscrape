@@ -1,12 +1,5 @@
 #!/bin/bash
 
-for dir in /home/juriscrape-dev/juriscrape/*/
-do
-  if [ -e "$dir/package.json" ]
-  then
-    echo "Installing dependencies for $dir"
-    cd $dir
-    npm install
-    cd ..
-  fi
-done
+dirs=$(find /home/juriscrape-dev/juriscrape/ -maxdepth 2 -name 'package.json' -exec dirname {} \;)
+
+echo "$dirs" | xargs -I {} -P 4 bash -c 'cd "{}" && echo "Installing dependencies for {}" && npm install'
