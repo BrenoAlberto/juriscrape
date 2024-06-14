@@ -1,6 +1,6 @@
 {
     "name": "My Dev Container",
-    "dockerComposeFile": "../docker-compose.yml",
+    "dockerComposeFile": "../juriscrape-dev/docker-compose.yml",
     "runArgs": [
         "export", "USER_ID=$(id -u)",
         "&&", "export", "GROUP_ID=$(id -g)",
@@ -26,6 +26,7 @@
                 "github.copilot",
                 "github.copilot-chat",
                 "kisstkondoros.vscode-codemetrics",
+                "ms-azuretools.vscode-docker",
                 "orta.vscode-jest",
                 "pkief.material-icon-theme",
                 "rvest.vs-code-prettier-eslint",
