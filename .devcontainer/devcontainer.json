@@ -1,8 +1,13 @@
 {
     "name": "My Dev Container",
     "dockerComposeFile": "../docker-compose.yml",
+    "runArgs": [
+        "export", "USER_ID=$(id -u)",
+        "&&", "export", "GROUP_ID=$(id -g)",
+        "&&", "export", "USER_NAME=juriscrape-dev"
+    ],
     "service": "dev",
-    "workspaceFolder": "/app",
+    "workspaceFolder": "/home/juriscrape-dev/juriscrape",
     "customizations": {
         "vscode": {
             "settings": {

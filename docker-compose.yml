@@ -3,15 +3,19 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile
+      args:
+        - USER_ID=${USER_ID}
+        - GROUP_ID=${GROUP_ID}
+        - USER_NAME=juriscrape-dev
     environment:
       - MONGO_URL=mongodb://mongo:27018/juriscrape
       - TJ_API_URL=http://dev:3000
       - TJAL_ESAJ_URL=http://dev:3008
       - TJCE_ESAJ_URL=http://dev:3009
     volumes:
-      - /tmp:/tmp:rw
-      - ~/.zsh_history:/root/.zsh_history:rw
-      - ./:/app/:rw
+      # - /tmp:/tmp:rw
+      - ~/.zsh_history:/home/juriscrape-dev/.zsh_history:rw
+      - ./:/home/juriscrape-dev/juriscrape/:rw
     networks:
       - webnet
     depends_on:

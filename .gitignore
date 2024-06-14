@@ -1,5 +1,5 @@
 juriscrape-basic
 juriscrape-dev
-mongo_data
+.mongo_data
 node_modules
 .env

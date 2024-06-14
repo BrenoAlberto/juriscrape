@@ -1,6 +1,6 @@
 #!/bin/bash
 
-for dir in ./*/
+for dir in /home/juriscrape-dev/juriscrape/*/
 do
   if [ -e "$dir/package.json" ]
   then
