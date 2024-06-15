@@ -22,8 +22,8 @@ def run_git_command(command: List[str], repo_dir: str = '') -> int:
     result = subprocess.run(command)
     return result.returncode
 
-def clone_repo(repo_url: str, path: str) -> str:
-    repo_name = os.path.basename(repo_url)
+def clone_repo(repo_url: str, path: str, repo_name: str = None) -> str:
+    repo_name = repo_name or os.path.basename(repo_url)
     repo_dir = os.path.join(path, repo_name)
     if not os.path.exists(repo_dir):
         logging.info(f"Cloning {repo_url} into {repo_dir}")
@@ -36,8 +36,8 @@ def fetch_and_merge(repo_dir: str, branch: str) -> None:
     run_git_command(['fetch', 'origin'], repo_dir)
     run_git_command(['merge', '--no-edit', f'origin/{branch}'], repo_dir)
 
-def update_repo(repo_url: str, path: str) -> str:
-    repo_name = os.path.basename(repo_url)
+def update_repo(repo_url: str, path: str, repo_name: str = None) -> str:
+    repo_name = repo_name or os.path.basename(repo_url)
     repo_dir = os.path.join(path, repo_name)
     if os.path.exists(repo_dir):
         logging.info(f"Updating {repo_url} in {repo_dir}")
@@ -63,15 +63,16 @@ def process_repos(repos: Dict[str, Union[Dict, List]], base_path: str = '', acti
         path = os.path.join(base_path, key)
         if isinstance(value, list):
             for item in value:
-                repo_paths.append(repo_action(item['repository'], path, action))
+                repo_name = item.get('name')
+                repo_paths.append(repo_action(item['repository'], path, action, repo_name))
         elif isinstance(value, dict):
             process_repos(value, path, action, repo_paths)
 
-def repo_action(repo_url: str, path: str, action: str) -> str:
+def repo_action(repo_url: str, path: str, action: str, repo_name: str = None) -> str:
     if action == 'clone':
-        return clone_repo(repo_url, path)
+        return clone_repo(repo_url, path, repo_name)
     elif action == 'update':
-        return update_repo(repo_url, path)
+        return update_repo(repo_url, path, repo_name)
 
 def update_current_repo() -> None:
     try:
