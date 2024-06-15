@@ -4,6 +4,7 @@ import os
 import subprocess
 import logging
 from typing import Any, Dict, List, Union
+import sys
 
 def setup_logging() -> None:
     logging.basicConfig(level=logging.INFO, format='%(levelname)s - %(message)s')
@@ -57,11 +58,16 @@ def process_repos(repos: Dict[str, Union[Dict, List]], base_path: str = '', acti
             process_repos(value, path, action)
 
 def main() -> None:
+    setup_logging()
+
+    if sys.version_info < (3, 7):
+        logging.error("This script requires Python 3.7+.")
+        sys.exit(1)
+
     parser = argparse.ArgumentParser(description='Manage repositories.')
     parser.add_argument('action', choices=['clone', 'update'], help='The action to perform.')
     args = parser.parse_args()
 
-    setup_logging()
     repos = read_yaml(os.path.join(os.path.dirname(__file__), '..', 'repositories.yaml'))
     process_repos(repos, action=args.action)
 
