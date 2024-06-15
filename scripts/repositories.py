@@ -5,6 +5,7 @@ import subprocess
 import logging
 from typing import Any, Dict, List, Union
 import sys
+import json
 
 def setup_logging() -> None:
     logging.basicConfig(level=logging.INFO, format='%(levelname)s - %(message)s')
@@ -21,7 +22,7 @@ def run_git_command(command: List[str], repo_dir: str = '') -> int:
     result = subprocess.run(command)
     return result.returncode
 
-def clone_repo(repo_url: str, path: str) -> None:
+def clone_repo(repo_url: str, path: str) -> str:
     repo_name = os.path.basename(repo_url)
     repo_dir = os.path.join(path, repo_name)
     if not os.path.exists(repo_dir):
@@ -29,12 +30,13 @@ def clone_repo(repo_url: str, path: str) -> None:
         run_git_command(['clone', repo_url, repo_dir])
     else:
         logging.info(f"Repository {repo_name} already exists, skipping.")
+    return repo_dir
 
 def fetch_and_merge(repo_dir: str, branch: str) -> None:
     run_git_command(['fetch', 'origin'], repo_dir)
     run_git_command(['merge', '--no-edit', f'origin/{branch}'], repo_dir)
 
-def update_repo(repo_url: str, path: str) -> None:
+def update_repo(repo_url: str, path: str) -> str:
     repo_name = os.path.basename(repo_url)
     repo_dir = os.path.join(path, repo_name)
     if os.path.exists(repo_dir):
@@ -48,8 +50,12 @@ def update_repo(repo_url: str, path: str) -> None:
                 logging.error(f"Neither 'master' nor 'main' branch found in remote repository for {repo_dir}")
         except subprocess.CalledProcessError as e:
             logging.error(f"Error updating repo {repo_url}: {e}")
+    return repo_dir
 
-def process_repos(repos: Dict[str, Union[Dict, List]], base_path: str = '', action: str = 'clone') -> None:
+def process_repos(repos: Dict[str, Union[Dict, List]], base_path: str = '', action: str = 'clone', repo_paths: List[str] = None) -> None:
+    if repo_paths is None:
+        repo_paths = []
+
     if action == 'update':
         update_current_repo()
 
@@ -57,15 +63,15 @@ def process_repos(repos: Dict[str, Union[Dict, List]], base_path: str = '', acti
         path = os.path.join(base_path, key)
         if isinstance(value, list):
             for item in value:
-                repo_action(item['repository'], path, action)
+                repo_paths.append(repo_action(item['repository'], path, action))
         elif isinstance(value, dict):
-            process_repos(value, path, action)
+            process_repos(value, path, action, repo_paths)
 
-def repo_action(repo_url: str, path: str, action: str) -> None:
+def repo_action(repo_url: str, path: str, action: str) -> str:
     if action == 'clone':
-        clone_repo(repo_url, path)
+        return clone_repo(repo_url, path)
     elif action == 'update':
-        update_repo(repo_url, path)
+        return update_repo(repo_url, path)
 
 def update_current_repo() -> None:
     try:
@@ -79,6 +85,23 @@ def update_current_repo() -> None:
     except subprocess.CalledProcessError as e:
         logging.error(f"Error updating current repo: {e}")
 
+def write_repo_paths_to_json(repo_paths: List[str]) -> None:
+    json_file_path = os.path.join(os.path.dirname(__file__), '..', 'local_paths.json')
+    
+    if os.path.exists(json_file_path):
+        with open(json_file_path, 'r') as file:
+            existing_data = json.load(file)
+        combined_data = set(existing_data).union(repo_paths)
+    else:
+        combined_data = set(repo_paths)
+    
+    data = list(combined_data)
+    
+    with open(json_file_path, 'w') as file:
+        json.dump(data, file, indent=4)
+    
+    logging.info(f"Repository paths have been written to {json_file_path}")
+
 def main() -> None:
     setup_logging()
 
@@ -89,9 +112,14 @@ def main() -> None:
     parser = argparse.ArgumentParser(description='Manage repositories.')
     parser.add_argument('action', choices=['clone', 'update'], help='The action to perform.')
     args = parser.parse_args()
+    action = args.action
 
     repos = read_yaml(os.path.join(os.path.dirname(__file__), '..', 'repositories.yaml'))
-    process_repos(repos, action=args.action)
+    repo_paths = []
+    process_repos(repos, action=action, repo_paths=repo_paths)
+
+    if action == 'clone':
+        write_repo_paths_to_json(repo_paths)
 
 if __name__ == "__main__":
     main()
