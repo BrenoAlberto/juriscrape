@@ -1,0 +1,22 @@
+---
+  apis:
+    - name: juriscrape-api
+      repository: https://github.com/BrenoAlberto/juriscrape-api
+  libs:
+    - name: juriscrape-common
+      repository: https://github.com/BrenoAlberto/juriscrape-common
+    - name: juriscrape-driver
+      repository: https://github.com/BrenoAlberto/juriscrape-driver
+  tools:
+    - name: juriscrape-dev
+      repository: https://github.com/BrenoAlberto/juriscrape-dev
+  infra:
+    - name: juriscrape-infra
+      repository: https://github.com/BrenoAlberto/juriscrape-infra
+  bots:
+    lawsuits:
+      esaj:
+        - name: juriscrape-tjal-esaj
+          repository: https://github.com/BrenoAlberto/juriscrape-tjal-esaj
+        - name: juriscrape-tjce-esaj
+          repository: https://github.com/BrenoAlberto/juriscrape-tjce-esaj
