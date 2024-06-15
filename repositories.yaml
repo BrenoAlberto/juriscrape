@@ -2,6 +2,10 @@
   apis:
     - name: main-api
       repository: https://github.com/BrenoAlberto/juriscrape-api
+      skaffold-artifact:
+        image: brenoalberto/juriscrape-api
+        sync: 
+          - 'src/**/*.ts'
   libs:
     - name: common
       repository: https://github.com/BrenoAlberto/juriscrape-common
@@ -13,10 +17,20 @@
   infra:
     - name: main-infra
       repository: https://github.com/BrenoAlberto/juriscrape-infra
+      skaffold-manifests:
+        - k8s/*
   bots:
     lawsuits:
       esaj:
         - name: tjal-esaj
           repository: https://github.com/BrenoAlberto/juriscrape-tjal-esaj
+          skaffold-artifact:
+            image: brenoalberto/juriscrape-tjal-esaj
+            sync: 
+              - 'src/**/*.ts'
         - name: tjce-esaj
           repository: https://github.com/BrenoAlberto/juriscrape-tjce-esaj
+          skaffold-artifact:
+            image: brenoalberto/juriscrape-tjce-esaj
+            sync: 
+              - 'src/**/*.ts'
