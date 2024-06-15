@@ -1,7 +1,0 @@
-https://github.com/BrenoAlberto/juriscrape-api
-https://github.com/BrenoAlberto/juriscrape-common
-https://github.com/BrenoAlberto/juriscrape-dev
-https://github.com/BrenoAlberto/juriscrape-driver
-https://github.com/BrenoAlberto/juriscrape-infra
-https://github.com/BrenoAlberto/juriscrape-tjal-esaj
-https://github.com/BrenoAlberto/juriscrape-tjce-esaj
